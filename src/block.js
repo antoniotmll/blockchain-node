@@ -38,6 +38,17 @@ class Block {
             resolve(dataObject);
         });
     }
+
+    toString() {
+        const { hash, height, body, time, previousBlocHash } = this;
+        return `Block - 
+            hash: ${hash}
+            height: ${height}
+            body: ${body}
+            time: ${time}
+            previousBlockHast: ${previousBlocHash}
+            --------------------------------------`;
+    }
 }
 
 module.exports = Block;
