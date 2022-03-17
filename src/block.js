@@ -23,6 +23,21 @@ class Block {
             resolve(true);
         })
     }
+
+    getBlokData() {
+        const self = this;
+        return new Promise((resolve, reject) => {
+            let encodedData = self.body;
+            let decodedData = hex2ascii(encodedData);
+            let dataObject = JSON.parse(decodedData);
+
+            if (dataObject === 'Genesis Block') {
+                reject(new Error('This is the Genesis Block'));
+            }
+
+            resolve(dataObject);
+        });
+    }
 }
 
 module.exports = Block;
