@@ -15,9 +15,9 @@ class Blockchain {
         }
     }
 
-    addBlock(Block) {
+    addBlock(block) {
         let self = this;
-        return new Promise((resolve, reject) => {
+        return new Promise(async(resolve, reject) => {
             block.height = self.chain.length;
             block.time = new Date().getTime().toString().slice();
 
@@ -27,7 +27,7 @@ class Blockchain {
 
             let errors = await self.validateChain();
             if (errors.length > 0) {
-                reject(new Error('The chain is not valid: ', errors));
+                reject(new Error("The chain is not valid: ", errors));
             }
 
             block.hash = SHA256(JSON.stringify(block)).toString();
