@@ -55,6 +55,13 @@ class Blockchain {
             resolve(errors);
         })
     }
+
+    print() {
+        let self = this;
+        for (let block of self.chain) {
+            console.log(block.toString());
+        }
+    }
 }
 
 module.exports = Blockchain;
