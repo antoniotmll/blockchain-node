@@ -25,13 +25,35 @@ class Blockchain {
                 block.previousBlockHash = self.chain[self.chain.length - 1].hash;
             }
 
-            let errors = await self.ValidateChain();
+            let errors = await self.validateChain();
             if (errors.length > 0) {
                 reject(new Error('The chain is not valid: ', errors));
             }
 
             block.hash = SHA256(JSON.stringify(block)).toString();
+            self.chain.push(block);
+            resolve(block);
         });
+    }
+
+    validateChain() {
+        let self = this;
+        const errors = [];
+
+        return new Promise((resolve, reject) => {
+            self.chain.map(async(block) => {
+                try {
+                    let isValid = await block.validate();
+                    if (!isValid) {
+                        errors.push(new Error(`The block ${block.height} is not valid`));
+                    }
+                } catch (err) {
+                    errors.push(err);
+                }
+            });
+
+            resolve(errors);
+        })
     }
 }
 
