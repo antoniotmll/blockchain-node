@@ -1,3 +1,4 @@
+const SHA256 = require('crypto-js/sha256');
 const Block = require('./block');
 
 class Blockchain {
@@ -25,6 +26,11 @@ class Blockchain {
             }
 
             let errors = await self.ValidateChain();
+            if (errors.length > 0) {
+                reject(new Error('The chain is not valid: ', errors));
+            }
+
+            block.hash = SHA256(JSON.stringify(block)).toString();
         });
     }
 }
