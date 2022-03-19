@@ -10,7 +10,7 @@ class Blockchain {
 
     async initializeChain() {
         if (this.height === -1) {
-            const block = new Block({ data: 'Genesis Block' });
+            const block = new Block({ data: "Genesis Block" });
             await this.addBlock(block);
         }
     }
@@ -19,16 +19,16 @@ class Blockchain {
         let self = this;
         return new Promise(async(resolve, reject) => {
             block.height = self.chain.length;
-            block.time = new Date().getTime().toString().slice();
+            block.time = new Date().getTime().toString();
 
             if (self.chain.length > 0) {
                 block.previousBlockHash = self.chain[self.chain.length - 1].hash;
             }
 
             let errors = await self.validateChain();
-            // if (errors.length > 0) {
-            //     reject(new Error('The chain is not valid', errors));
-            // }
+            if (errors.length > 0) {
+                reject(new Error("The chain is not valid: ", errors));
+            }
 
             block.hash = SHA256(JSON.stringify(block)).toString();
             self.chain.push(block);
