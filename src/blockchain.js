@@ -26,9 +26,9 @@ class Blockchain {
             }
 
             let errors = await self.validateChain();
-            if (errors.length > 0) {
-                reject(new Error("The chain is not valid: ", errors));
-            }
+            // if (errors.length > 0) {
+            //     reject(new Error("The chain is not valid: ", errors));
+            // }
 
             block.hash = SHA256(JSON.stringify(block)).toString();
             self.chain.push(block);
