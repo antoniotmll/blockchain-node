@@ -9,4 +9,16 @@ class Block {
         this.nonce = nonce;
         this.difficult = difficult;
     }
+
+    static get genesis() {
+        const time = new Date('2009-03-01').getTime();
+        return new this(
+            time,
+            undefined,
+            'genesis_hash',
+            "Genesis Block",
+            0,
+            DIFFICULTY,
+        );
+    }
 }
