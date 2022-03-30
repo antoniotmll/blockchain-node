@@ -1,5 +1,7 @@
 const SHA256 = require('crypto-js/sha256');
 
+const DIFFICULTY = 3;
+
 class Block {
     constructor(time, previousHash, hash, data, nonce, difficult) {
         this.time = time;
@@ -20,5 +22,17 @@ class Block {
             0,
             DIFFICULTY,
         );
+    }
+
+    toString() {
+        const { time, previousHash, hash, data, nonce, difficulty } = this;
+        return `Block - 
+        Time: ${time}
+        Previous Hash: ${previousHash}
+        Hash: ${hash},
+        Data: ${data},
+        Nonce: ${nonce},
+        Difficulty: ${difficulty}
+        --------------------------------`;
     }
 }
